@@ -212,8 +212,10 @@ class PHPCPDTask extends Task
          * Determine PHPCPD installation
          */
         $oldVersion = false;
-        
-        if (!@include_once('SebastianBergmann/PHPCPD/autoload.php')) {
+        if (
+            !class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy')
+            && !@include_once('SebastianBergmann/PHPCPD/autoload.php')
+        ) {
             if (!@include_once('PHPCPD/Autoload.php')) {
                 throw new BuildException(
                     'PHPCPDTask depends on PHPCPD being installed '
